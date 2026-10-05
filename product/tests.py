@@ -1,8 +1,5 @@
 from django.test import TestCase
 
-# Create your tests here.
-from django.test import TestCase
-
 from product.models import Category, Product
 from product.serializers import CategorySerializer, ProductSerializer
 
@@ -23,6 +20,16 @@ class CategorySerializerTest(TestCase):
             set(serializer.data.keys()),
             {'title', 'slug', 'description', 'active'}
         )
+
+    def test_category_title_required(self):
+        serializer = CategorySerializer(data={
+            'slug': 'livros',
+            'description': 'Categoria de livros',
+            'active': True
+        })
+
+        self.assertFalse(serializer.is_valid())
+        self.assertIn('title', serializer.errors)
 
 
 class ProductSerializerTest(TestCase):
@@ -58,3 +65,22 @@ class ProductSerializerTest(TestCase):
             serializer.data['category'][0]['title'],
             'Tecnologia'
         )
+
+    def test_product_invalid_price(self):
+        serializer = ProductSerializer(data={
+            'title': 'Livro Django',
+            'description': 'Livro sobre Django',
+            'price': -10,
+            'active': True,
+            'category': [
+                {
+                    'title': 'Tecnologia',
+                    'slug': 'tecnologia',
+                    'description': 'Categoria de tecnologia',
+                    'active': True
+                }
+            ]
+        })
+
+        self.assertFalse(serializer.is_valid())
+        self.assertIn('price', serializer.errors)
