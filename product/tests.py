@@ -54,8 +54,8 @@ class ProductSerializerTest(TestCase):
         serializer = ProductSerializer(self.product)
 
         self.assertEqual(
-            set(serializer.data.keys()),
-            {'title', 'description', 'price', 'active', 'category'}
+          set(serializer.data.keys()),
+          {'id', 'title', 'description', 'price', 'active', 'category'}
         )
 
     def test_product_contains_category(self):

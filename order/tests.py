@@ -34,7 +34,7 @@ class OrderSerializerTest(TestCase):
 
     self.assertEqual(
       set(serializer.data.keys()),
-      {'product', 'total'}
+      {'product', 'total', 'user'}
     )
 
   def test_order_total(self):
@@ -44,6 +44,4 @@ class OrderSerializerTest(TestCase):
 
 
 
-from django.test import TestCase
 
-# Create your tests here.

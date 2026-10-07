@@ -10,7 +10,8 @@ dependencies = [
     "django (>=6.1.1,<7.0.0)",
     "djangorestframework (>=3.18.1,<4.0.0)",
     "django-rest-framework (>=0.1.0,<0.2.0)",
-    "djangorestframework-stubs (>=3.18.1,<4.0.0)"
+    "djangorestframework-stubs (>=3.18.1,<4.0.0)",
+    "django-extensions (>=4.1,<5.0)"
 ]
 
 [dependency-groups]
