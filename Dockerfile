@@ -1,3 +1,15 @@
-# syntax=docker/dockerfile:1
-FROM busybox
-CMD echo "Hello world! This is my first Docker image."
+FROM python:3.14-slim
+
+WORKDIR /app
+
+COPY pyproject.toml poetry.lock ./
+
+RUN pip install poetry
+
+RUN poetry config virtualenvs.create false && poetry install --no-root
+
+COPY . .
+
+EXPOSE 8000
+
+CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"]
