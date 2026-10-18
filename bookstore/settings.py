@@ -5,24 +5,17 @@ Django settings for bookstore project.
 import os
 from pathlib import Path
 
-
 # Caminho base do projeto
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 
 # Segurança / ambiente
 
-SECRET_KEY = os.environ.get(
-    "SECRET_KEY",
-    "django-insecure-dev-key"
-)
+SECRET_KEY = os.environ.get("SECRET_KEY", "django-insecure-dev-key")
 
 DEBUG = int(os.environ.get("DEBUG", default=0))
 
-ALLOWED_HOSTS = os.environ.get(
-    "DJANGO_ALLOWED_HOSTS",
-    "localhost 127.0.0.1"
-).split(" ")
+ALLOWED_HOSTS = os.environ.get("DJANGO_ALLOWED_HOSTS", "localhost 127.0.0.1").split(" ")
 
 
 # Aplicações
@@ -34,12 +27,10 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
-
     "django_extensions",
     "rest_framework",
     "rest_framework.authtoken",
     "debug_toolbar",
-
     "order",
     "product",
 ]
@@ -88,30 +79,12 @@ WSGI_APPLICATION = "bookstore.wsgi.application"
 
 DATABASES = {
     "default": {
-        "ENGINE": os.environ.get(
-            "SQL_ENGINE",
-            "django.db.backends.sqlite3"
-        ),
-        "NAME": os.environ.get(
-            "SQL_DATABASE",
-            BASE_DIR / "db.sqlite3"
-        ),
-        "USER": os.environ.get(
-            "SQL_USER",
-            "user"
-        ),
-        "PASSWORD": os.environ.get(
-            "SQL_PASSWORD",
-            "password"
-        ),
-        "HOST": os.environ.get(
-            "SQL_HOST",
-            "localhost"
-        ),
-        "PORT": os.environ.get(
-            "SQL_PORT",
-            "5432"
-        ),
+        "ENGINE": os.environ.get("SQL_ENGINE", "django.db.backends.sqlite3"),
+        "NAME": os.environ.get("SQL_DATABASE", BASE_DIR / "db.sqlite3"),
+        "USER": os.environ.get("SQL_USER", "user"),
+        "PASSWORD": os.environ.get("SQL_PASSWORD", "password"),
+        "HOST": os.environ.get("SQL_HOST", "localhost"),
+        "PORT": os.environ.get("SQL_PORT", "5432"),
     }
 }
 
@@ -126,22 +99,13 @@ AUTH_PASSWORD_VALIDATORS = [
         ),
     },
     {
-        "NAME": (
-            "django.contrib.auth.password_validation."
-            "MinimumLengthValidator"
-        ),
+        "NAME": ("django.contrib.auth.password_validation." "MinimumLengthValidator"),
     },
     {
-        "NAME": (
-            "django.contrib.auth.password_validation."
-            "CommonPasswordValidator"
-        ),
+        "NAME": ("django.contrib.auth.password_validation." "CommonPasswordValidator"),
     },
     {
-        "NAME": (
-            "django.contrib.auth.password_validation."
-            "NumericPasswordValidator"
-        ),
+        "NAME": ("django.contrib.auth.password_validation." "NumericPasswordValidator"),
     },
 ]
 
@@ -170,11 +134,8 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 # Django REST Framework
 
 REST_FRAMEWORK = {
-    "DEFAULT_PAGINATION_CLASS": (
-        "rest_framework.pagination.PageNumberPagination"
-    ),
+    "DEFAULT_PAGINATION_CLASS": ("rest_framework.pagination.PageNumberPagination"),
     "PAGE_SIZE": 5,
-
     "DEFAULT_AUTHENTICATION_CLASSES": [
         "rest_framework.authentication.BasicAuthentication",
         "rest_framework.authentication.SessionAuthentication",

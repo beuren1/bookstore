@@ -17,18 +17,13 @@ class TestProductViewSet(APITestCase):
         self.user = UserFactory()
 
         self.product = ProductFactory(
-            title='pro controller',
+            title="pro controller",
             price=200.00,
         )
 
     def test_get_all_product(self):
-        response = self.client.get(
-            reverse('product-list', kwargs={'version': 'v1'})
-        )
+        response = self.client.get(reverse("product-list", kwargs={"version": "v1"}))
 
-        self.assertEqual(
-            response.status_code,
-            status.HTTP_200_OK
-        )
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
 
         product_data = json.loads(response.content)

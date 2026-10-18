@@ -8,44 +8,43 @@ class CategorySerializerTest(TestCase):
 
     def test_category_serializer_fields(self):
         category = Category.objects.create(
-            title='Livros',
-            slug='livros',
-            description='Categoria de livros',
-            active=True
+            title="Livros",
+            slug="livros",
+            description="Categoria de livros",
+            active=True,
         )
 
         serializer = CategorySerializer(category)
 
         self.assertEqual(
-            set(serializer.data.keys()),
-            {'title', 'slug', 'description', 'active'}
+            set(serializer.data.keys()), {"title", "slug", "description", "active"}
         )
 
     def test_category_title_required(self):
-        serializer = CategorySerializer(data={
-            'slug': 'livros',
-            'description': 'Categoria de livros',
-            'active': True
-        })
+        serializer = CategorySerializer(
+            data={
+                "slug": "livros",
+                "description": "Categoria de livros",
+                "active": True,
+            }
+        )
 
         self.assertFalse(serializer.is_valid())
-        self.assertIn('title', serializer.errors)
+        self.assertIn("title", serializer.errors)
 
 
 class ProductSerializerTest(TestCase):
 
     def setUp(self):
         self.category = Category.objects.create(
-            title='Tecnologia',
-            slug='tecnologia',
-            active=True
+            title="Tecnologia", slug="tecnologia", active=True
         )
 
         self.product = Product.objects.create(
-            title='Livro Django',
-            description='Livro sobre Django',
+            title="Livro Django",
+            description="Livro sobre Django",
             price=100,
-            active=True
+            active=True,
         )
 
         self.product.category.add(self.category)
@@ -54,33 +53,32 @@ class ProductSerializerTest(TestCase):
         serializer = ProductSerializer(self.product)
 
         self.assertEqual(
-          set(serializer.data.keys()),
-          {'id', 'title', 'description', 'price', 'active', 'category'}
+            set(serializer.data.keys()),
+            {"id", "title", "description", "price", "active", "category"},
         )
 
     def test_product_contains_category(self):
         serializer = ProductSerializer(self.product)
 
-        self.assertEqual(
-            serializer.data['category'][0]['title'],
-            'Tecnologia'
-        )
+        self.assertEqual(serializer.data["category"][0]["title"], "Tecnologia")
 
     def test_product_invalid_price(self):
-        serializer = ProductSerializer(data={
-            'title': 'Livro Django',
-            'description': 'Livro sobre Django',
-            'price': -10,
-            'active': True,
-            'category': [
-                {
-                    'title': 'Tecnologia',
-                    'slug': 'tecnologia',
-                    'description': 'Categoria de tecnologia',
-                    'active': True
-                }
-            ]
-        })
+        serializer = ProductSerializer(
+            data={
+                "title": "Livro Django",
+                "description": "Livro sobre Django",
+                "price": -10,
+                "active": True,
+                "category": [
+                    {
+                        "title": "Tecnologia",
+                        "slug": "tecnologia",
+                        "description": "Categoria de tecnologia",
+                        "active": True,
+                    }
+                ],
+            }
+        )
 
         self.assertFalse(serializer.is_valid())
-        self.assertIn('price', serializer.errors)
+        self.assertIn("price", serializer.errors)

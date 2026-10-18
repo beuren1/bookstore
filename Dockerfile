@@ -1,5 +1,7 @@
 FROM python:3.14-slim
 
+RUN apt-get update && apt-get install -y make
+
 WORKDIR /app
 
 COPY pyproject.toml poetry.lock ./
