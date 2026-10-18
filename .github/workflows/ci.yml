@@ -5,6 +5,7 @@ on:
     branches:
       - main
       - github-actions
+      - feat-pythonanywhere
   pull_request:
     branches:
       - main
