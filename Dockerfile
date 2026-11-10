@@ -7,9 +7,11 @@ COPY pyproject.toml poetry.lock ./
 RUN pip install --no-cache-dir poetry \
     && poetry config virtualenvs.create false \
     && poetry install --only main --no-root \
-    && pip install --no-cache-dir gunicorn
+    && pip install --no-cache-dir gunicorn whitenoise
 
 COPY . .
+
+RUN python manage.py collectstatic --noinput
 
 EXPOSE 10000
 
